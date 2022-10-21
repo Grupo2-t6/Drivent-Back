@@ -18,6 +18,7 @@ function validate(schema: ObjectSchema, type: 'body' | 'params') {
     });
 
     if (!error) {
+      console.log(error);
       next();
     } else {
       res.status(httpStatus.BAD_REQUEST).send(invalidDataError(error.details.map((d) => d.message)));
