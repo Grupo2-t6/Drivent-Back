@@ -71,7 +71,7 @@ model Address {
 
 model TicketsSold{
   id            Int       @id @default(autoincrement())
-  userId        Int       
+  userId        Int       @unique
   User          User      @relation(fields: [userId], references: [id])
   ticketValue   Int     
 

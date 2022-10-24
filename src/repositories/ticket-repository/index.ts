@@ -3,14 +3,22 @@ import { TicketsSold } from '@prisma/client';
 
 
 export async function create(data: CreateTicketsSold) {
-  console.log(data)
   return prisma.ticketsSold.create({
     data,
   });
 }
 
+export async function isTicket(userId: number) {
+  return prisma.ticketsSold.findFirst({
+    where:{
+      userId
+    }
+  });
+}
+
 const userRepository = {
   create,
+  isTicket,
 };
 
 export default userRepository;
