@@ -1,7 +1,7 @@
 import { create, isTicket } from '@/repositories/ticket-repository';
 import { conflictError } from '@/errors';
 
-export default async function newTicketPurchased(userId: number, ticketValue: number){
+export async function newTicketPurchased(userId: number, ticketValue: number){
 
 const ticketPurchased = await isTicket(userId)
 if(ticketPurchased){
@@ -9,4 +9,13 @@ if(ticketPurchased){
 }
 
 await create({userId, ticketValue})
+}
+
+export async function getTicketValue(userId: number){
+    const ticketPurchased = await isTicket(userId)
+    if(!ticketPurchased){
+        return 0
+    }
+    return ticketPurchased.ticketValue
+
 }
