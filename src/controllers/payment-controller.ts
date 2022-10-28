@@ -14,5 +14,5 @@ export async function paymentPost(req: AuthenticatedRequest, res: Response) {
 export async function paymentGet(req: AuthenticatedRequest, res: Response){
   const { userId } = req;
   const ticketValue =  await getTicketValue(userId);
-  return res.sendStatus(httpStatus.OK);
+  return res.send({ticketValue}).status(httpStatus.OK);
 }
