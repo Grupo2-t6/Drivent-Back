@@ -11,3 +11,11 @@ export async function postHotelInformations(req: AuthenticatedRequest, res: Resp
 
   return res.sendStatus(httpStatus.OK);
 }
+
+export async function getHotelInfo(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  const hotelReserve = await hotelService.getHotelReserve(userId);
+
+  return res.status(httpStatus.OK).send(hotelReserve);
+}

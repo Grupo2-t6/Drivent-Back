@@ -6,7 +6,7 @@ export type postHotelReserve = Omit<Hotel, 'createdAt' | 'id'>;
 
 async function postHotelInformations(userId: number, hotelReservation: any) {
   const findUserReserve = await hotelRepository.isReservationAlredyDoneByUser(userId);
-  if (findUserReserve !== null) throw conflictError('you alredy have your reserve');
+  if (findUserReserve !== null) throw conflictError('você já tem sua reserva');
   const hotelReserve = {
     userId: userId,
     roomNumber: hotelReservation.roomNumber,
@@ -17,8 +17,16 @@ async function postHotelInformations(userId: number, hotelReservation: any) {
   await hotelRepository.createReservation(hotelReserve);
 }
 
+async function getHotelReserve(userId: number) {
+  const findUserReserve = await hotelRepository.isReservationAlredyDoneByUser(userId);
+  if (findUserReserve === null) throw conflictError('você não fez sua reserva');
+  return {
+    findUserReserve,
+  };
+}
 const hotelService = {
   postHotelInformations,
+  getHotelReserve,
 };
 
 export default hotelService; 
