@@ -5,8 +5,9 @@ import httpStatus from 'http-status';
 
 export async function postHotelInformations(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
+  const hotelResevation = req.body;
 
-  await hotelService.postHotelInformations(userId);
+  await hotelService.postHotelInformations(userId, hotelResevation);
 
   return res.sendStatus(httpStatus.OK);
 }
