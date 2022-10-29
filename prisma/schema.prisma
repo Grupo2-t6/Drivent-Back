@@ -75,6 +75,7 @@ model Hotel {
   User       User      @relation(fields: [userId], references: [id])
   createdAt  DateTime   @default(now())
   roomNumber Int 
+  image      String 
   hotelName  String
   roomType   String
   roomCount  String

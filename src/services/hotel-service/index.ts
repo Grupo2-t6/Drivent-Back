@@ -9,6 +9,7 @@ async function postHotelInformations(userId: number, hotelReservation: any) {
   if (findUserReserve !== null) throw conflictError('você já tem sua reserva');
   const hotelReserve = {
     userId: userId,
+    image: hotelReservation.image,
     roomNumber: hotelReservation.roomNumber,
     hotelName: hotelReservation.hotelName,
     roomType: hotelReservation.roomType,
@@ -20,9 +21,7 @@ async function postHotelInformations(userId: number, hotelReservation: any) {
 async function getHotelReserve(userId: number) {
   const findUserReserve = await hotelRepository.isReservationAlredyDoneByUser(userId);
   if (findUserReserve === null) throw conflictError('você não fez sua reserva');
-  return {
-    findUserReserve,
-  };
+  return findUserReserve;
 }
 const hotelService = {
   postHotelInformations,
