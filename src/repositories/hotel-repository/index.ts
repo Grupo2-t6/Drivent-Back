@@ -12,9 +12,17 @@ async function isReservationAlredyDoneByUser(userId: number) {
   });
 }
 
+async function updateRoom(userId: number, roomNumber: number) {
+  return prisma.hotel.update({
+    where: { userId },
+    data: { roomNumber },
+  });
+}
+
 const hotelRepository = {
   createReservation,
   isReservationAlredyDoneByUser,
+  updateRoom,
 };
 
 export default hotelRepository;

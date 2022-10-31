@@ -19,3 +19,12 @@ export async function getHotelInfo(req: AuthenticatedRequest, res: Response) {
 
   return res.status(httpStatus.OK).send(hotelReserve);
 }
+
+export async function updateRoomHotel(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { roomNumber } = req.body;
+
+  const hotelReserve = await hotelService.updateRoomHotel(userId, roomNumber);
+
+  return res.status(httpStatus.OK).send(hotelReserve);
+}

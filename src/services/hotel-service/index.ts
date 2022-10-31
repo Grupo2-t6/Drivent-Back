@@ -23,9 +23,15 @@ async function getHotelReserve(userId: number) {
   if (findUserReserve === null) throw conflictError('você não fez sua reserva');
   return findUserReserve;
 }
+
+async function updateRoomHotel(userId: number, roomNumber: number) {
+  const reserve = await hotelRepository.updateRoom(userId, roomNumber);
+  if (userId !== reserve.userId) throw conflictError('você não tem permissão para trocar de quarto!');
+}
 const hotelService = {
   postHotelInformations,
   getHotelReserve,
+  updateRoomHotel,
 };
 
 export default hotelService; 
