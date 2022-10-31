@@ -8,4 +8,4 @@ export const hotelData = Joi.object({
   roomCount: Joi.string().required(),
 });
 
-export default hotelData; 
+export default hotelData;

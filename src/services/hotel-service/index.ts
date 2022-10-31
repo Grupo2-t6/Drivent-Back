@@ -34,4 +34,4 @@ const hotelService = {
   updateRoomHotel,
 };
 
-export default hotelService; 
+export default hotelService;
