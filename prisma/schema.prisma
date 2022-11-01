@@ -70,13 +70,31 @@ model Address {
 }
 
 model Hotel {
-  id         Int  @id @default(autoincrement())
-  userId     Int       @unique
-  User       User      @relation(fields: [userId], references: [id])
-  createdAt  DateTime   @default(now())
-  roomNumber Int 
-  image      String 
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  User       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+  roomNumber Int
+  image      String
   hotelName  String
   roomType   String
   roomCount  String
+}
+
+model Trails {
+  id         Int      @id @default(autoincrement())
+  name       String
+  activities Activities[]
+}
+
+model Activities {
+  id        Int      @id @default(autoincrement())
+  date      String
+  vacancies Int
+  startTime String
+  name      String
+  trailId   Int  
+  trail     Trails @relation(fields: [trailId], references: [id])    
+  finalTime String
+  
 }
