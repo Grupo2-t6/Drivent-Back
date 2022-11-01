@@ -7,8 +7,8 @@ async function validateVacancieActivityByTime(userId: number, activityId: number
   if (isActivityExistent === null) throw notFoundError();
   await isTimeValideToChooseActivity(isActivityExistent);
 }
-async function isTimeValideToChooseActivity(activity: Activities) {
-  const time = Number(activity.startTime[0] + activity.startTime[1]);
+async function isTimeValideToChooseActivity(Newactivity: Activities) {
+  const time = Number(Newactivity.startTime[0] + Newactivity.startTime[1]);
   const firstSelected = [
     {
       id: 1,
@@ -31,7 +31,7 @@ async function isTimeValideToChooseActivity(activity: Activities) {
   ];
   for (const activityChoosed of firstSelected) {
     const selectedActivityTime = Number(activityChoosed.startTime[0] + activityChoosed.startTime[1]);
-    if (time === selectedActivityTime && activity.date === activityChoosed.date) {
+    if (time === selectedActivityTime && Newactivity.date === activityChoosed.date) {
       throw conflictError('horários entram em conflito');
     }
   }
