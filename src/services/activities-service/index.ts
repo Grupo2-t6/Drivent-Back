@@ -5,9 +5,9 @@ import { Activities } from '@prisma/client';
 async function validateVacancieActivityByTime(userId: number, activityId: number) {
   const isActivityExistent = await activityRepository.isActivityExistent(activityId);
   if (isActivityExistent === null) throw notFoundError();
-  await isTimeValid(isActivityExistent);
+  await isTimeValideToChooseActivity(isActivityExistent);
 }
-async function isTimeValid(activity: Activities) {
+async function isTimeValideToChooseActivity(activity: Activities) {
   const time = Number(activity.startTime[0] + activity.startTime[1]);
   const firstSelected = [
     {
