@@ -9,7 +9,7 @@ async function validateVacancieActivityByTime(userId: number, activityId: number
 }
 async function isTimeValideToChooseActivity(Newactivity: Activities) {
   const time = Number(Newactivity.startTime[0] + Newactivity.startTime[1]);
-  const firstSelected = [
+  const userActivities = [
     {
       id: 1,
       date: 'sexta,22/10',
@@ -29,7 +29,7 @@ async function isTimeValideToChooseActivity(Newactivity: Activities) {
       finalTime: '11:00',
     },
   ];
-  for (const activityChoosed of firstSelected) {
+  for (const activityChoosed of userActivities) {
     const selectedActivityTime = Number(activityChoosed.startTime[0] + activityChoosed.startTime[1]);
     if (time === selectedActivityTime && Newactivity.date === activityChoosed.date) {
       throw conflictError('horários entram em conflito');
