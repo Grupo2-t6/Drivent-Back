@@ -6,6 +6,6 @@ import httpStatus from 'http-status';
 export async function postActivity(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   const activity = Number(req.params.id);
-  await activitiesService.validateVacancieActivityByTime(userId, activity);
+  await activitiesService.PostActivity(userId, activity);
   return res.sendStatus(httpStatus.CREATED);
 }
