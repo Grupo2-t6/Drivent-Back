@@ -22,9 +22,9 @@ async function insertActivity(newActivityid: number, userId: number) {
 async function isTimeValidToChooseActivity(newActivity: Activities, userId: number) {
   const userActivities = await activityRepository.userActivities(userId);
   if (userActivities === null) insertActivity(newActivity.id, userId);
-  for (const activityChoosed of userActivities) {
-    const conditional1 = newActivity.startTime === activityChoosed.Activity.startTime;
-    const conditional2 = newActivity.date === activityChoosed.Activity.date;
+  for (const userActivity of userActivities) {
+    const conditional1 = newActivity.startTime === userActivity.Activity.startTime;
+    const conditional2 = newActivity.date === userActivity.Activity.date;
     if (conditional1 && conditional2) {
       throw conflictError('horários entram em conflito');
     }
