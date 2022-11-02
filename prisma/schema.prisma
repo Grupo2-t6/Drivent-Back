@@ -19,6 +19,7 @@ model User {
   Session    Session[]
   Enrollment Enrollment[]
   Hotel      Hotel[]
+  UserActivities UserActivities[]
 }
 
 model Session {
@@ -96,5 +97,14 @@ model Activities {
   trailId   Int  
   trail     Trails @relation(fields: [trailId], references: [id])    
   finalTime String
+  UserActivities UserActivities[]
   
+}
+
+model UserActivities {
+  id  Int      @id @default(autoincrement())
+  userId     Int     
+  User       User     @relation(fields: [userId], references: [id])
+  activityId Int 
+  Activity   Activities  @relation(fields: [activityId], references: [id])
 }
