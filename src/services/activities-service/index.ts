@@ -1,40 +1,36 @@
+import app from '@/app';
 import { conflictError, notFoundError } from '@/errors';
 import activityRepository from '@/repositories/activity-repository';
 import { Activities } from '@prisma/client';
+import { UserActivities } from '@prisma/client';
 
 async function validateVacancieActivityByTime(userId: number, activityId: number) {
   const isActivityExistent = await activityRepository.isActivityExistent(activityId);
   if (isActivityExistent === null) throw notFoundError();
-  await isTimeValidToChooseActivity(isActivityExistent);
+  await isTimeValidToChooseActivity(isActivityExistent, userId);
 }
-async function isTimeValidToChooseActivity(newActivity: Activities) {
-  const time = Number(newActivity.startTime[0] + newActivity.startTime[1]);
-  const userActivities = [
-    {
-      id: 1,
-      date: 'sexta,22/10',
-      vacancies: 27,
-      startTime: '09:00',
-      name: 'MINECRAFT',
-      trailId: 1,
-      finalTime: '10:00',
-    },
-    {
-      id: 4,
-      date: 'sexta,23/10',
-      vacancies: 27,
-      startTime: '10:00',
-      name: 'MINECRAFT3',
-      trailId: 1,
-      finalTime: '11:00',
-    },
-  ];
+
+export type TuserActivityPostType = Omit<UserActivities, 'id'>;
+export type TuserActivitiesFound = Omit<Activities, 'trailId'>;
+
+async function insertActivity(newActivityid: number, userId: number) {
+  const data: TuserActivityPostType = {
+    userId: userId,
+    activityId: newActivityid,
+  };
+  await activityRepository.AddNewActivityAtUserById(data);
+}
+
+async function isTimeValidToChooseActivity(newActivity: Activities, userId: number) {
+  const userActivities = await activityRepository.userActivities(userId);
+  if (userActivities === null) insertActivity(newActivity.id, userId);
   for (const activityChoosed of userActivities) {
-    const selectedActivityTime = Number(activityChoosed.startTime[0] + activityChoosed.startTime[1]);
-    if (time === selectedActivityTime && newActivity.date === activityChoosed.date) {
+    const conditional1 = newActivity.startTime === activityChoosed.Activity.startTime;
+    if (conditional1 && newActivity.date === activityChoosed.Activity.date) {
       throw conflictError('horários entram em conflito');
     }
   }
+  insertActivity(newActivity.id, userId);
 }
 
 const activitiesService = {

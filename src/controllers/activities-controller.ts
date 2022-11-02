@@ -7,5 +7,5 @@ export async function postActivity(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   const activity = Number(req.params.id);
   await activitiesService.validateVacancieActivityByTime(userId, activity);
-  return res.sendStatus(httpStatus.OK);
+  return res.sendStatus(httpStatus.CREATED);
 }
