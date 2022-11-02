@@ -1,4 +1,3 @@
-import app from '@/app';
 import { conflictError, notFoundError } from '@/errors';
 import activityRepository from '@/repositories/activity-repository';
 import { Activities } from '@prisma/client';
@@ -11,7 +10,6 @@ async function validateVacancieActivityByTime(userId: number, activityId: number
 }
 
 export type TuserActivityPostType = Omit<UserActivities, 'id'>;
-export type TuserActivitiesFound = Omit<Activities, 'trailId'>;
 
 async function insertActivity(newActivityid: number, userId: number) {
   const data: TuserActivityPostType = {
