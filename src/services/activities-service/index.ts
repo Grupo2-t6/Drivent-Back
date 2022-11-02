@@ -24,7 +24,8 @@ async function isTimeValidToChooseActivity(newActivity: Activities, userId: numb
   if (userActivities === null) insertActivity(newActivity.id, userId);
   for (const activityChoosed of userActivities) {
     const conditional1 = newActivity.startTime === activityChoosed.Activity.startTime;
-    if (conditional1 && newActivity.date === activityChoosed.Activity.date) {
+    const conditional2 = newActivity.date === activityChoosed.Activity.date;
+    if (conditional1 && conditional2) {
       throw conflictError('horários entram em conflito');
     }
   }
