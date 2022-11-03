@@ -1,11 +1,10 @@
 import { conflictError, notFoundError } from '@/errors';
 import activityRepository from '@/repositories/activity-repository';
-import { Activities } from '@prisma/client';
-import { UserActivities } from '@prisma/client';
+import { Activities, UserActivities } from '@prisma/client';
 
 async function PostActivity(userId: number, activityId: number) {
   const isActivityExistent = await activityRepository.isActivityExistent(activityId);
-  if (isActivityExistent.vacancies === 0) throw conflictError('não tem mais vagas para esta atividade'); 
+  if (isActivityExistent.vacancies === 0) throw conflictError('não tem mais vagas para esta atividade');
   if (isActivityExistent === null) throw notFoundError();
   await isTimeValidToChooseActivity(isActivityExistent, userId);
 }
@@ -33,8 +32,19 @@ async function isTimeValidToChooseActivity(newActivity: Activities, userId: numb
   insertActivity(newActivity.id, userId);
 }
 
+async function vacancies(activyId: number) {
+  const vacancies = await activityRepository.getVacancies(activyId);
+  const enrolled = await activityRepository.enrolled(activyId);
+  const obj = {
+    vacancies: vacancies.vacancies,
+    enrolled: enrolled,
+  };
+  return obj;
+}
+
 const activitiesService = {
   PostActivity,
+  vacancies,
 };
 
 export default activitiesService;

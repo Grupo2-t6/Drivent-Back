@@ -30,10 +30,23 @@ async function userActivities(userId: number) {
   });
 }
 
+async function getVacancies(id: number) {
+  return prisma.activities.findFirst({
+    where: { id },
+  });
+}
+
+async function enrolled(id: number) {
+  return prisma.userActivities.count({
+    where: { activityId: id },
+  });
+}
 const activityRepository = {
   isActivityExistent,
   userActivities,
   AddNewActivityAtUserById,
+  getVacancies,
+  enrolled,
 };
 
 export default activityRepository;
