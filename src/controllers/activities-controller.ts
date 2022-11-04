@@ -9,3 +9,9 @@ export async function postActivity(req: AuthenticatedRequest, res: Response) {
   await activitiesService.PostActivity(userId, activity);
   return res.sendStatus(httpStatus.CREATED);
 }
+
+export async function getUserActivities(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const activities = await activitiesService.getUserActivities(userId);
+  return res.status(httpStatus.OK).send(activities);
+}

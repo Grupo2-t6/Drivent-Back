@@ -5,7 +5,7 @@ import { UserActivities } from '@prisma/client';
 
 async function PostActivity(userId: number, activityId: number) {
   const isActivityExistent = await activityRepository.isActivityExistent(activityId);
-  if (isActivityExistent.vacancies === 0) throw conflictError('não tem mais vagas para esta atividade'); 
+  if (isActivityExistent.vacancies === 0) throw conflictError('não tem mais vagas para esta atividade');
   if (isActivityExistent === null) throw notFoundError();
   await isTimeValidToChooseActivity(isActivityExistent, userId);
 }
@@ -33,8 +33,15 @@ async function isTimeValidToChooseActivity(newActivity: Activities, userId: numb
   insertActivity(newActivity.id, userId);
 }
 
+async function getUserActivities(userId: number) {
+  const userActivities = await activityRepository.userActivities(userId);
+  if (userActivities === null) throw notFoundError();
+  return userActivities;
+}
+
 const activitiesService = {
   PostActivity,
+  getUserActivities,
 };
 
 export default activitiesService;
