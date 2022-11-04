@@ -11,6 +11,7 @@ module.exports = {
   ],
   rules: {
     'no-console': 'off',
+    'no-console': 'warn',
     'import/no-unresolved': 'error',
     'import/order': 'off',
     'import/no-named-as-default-member': 'off',
