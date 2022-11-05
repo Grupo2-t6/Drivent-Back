@@ -63,7 +63,7 @@ export async function singInOauthPost(code: string){
   
   const isUser = await userRepository.findyUserById(dataUser.id)
   if(!isUser){
-    await userRepository.create({id: dataUser.id, email:dataUser.email, password: 'passFake' })
+    await userRepository.create({id: dataUser.id, email:dataUser.email, password: null })
   }
   console.log(dataUser)
   console.log(dataUser.id)
