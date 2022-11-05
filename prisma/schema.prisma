@@ -19,6 +19,7 @@ model User {
   Session    Session[]
   Enrollment Enrollment[]
   TicketsSold TicketsSold[]
+  Hotel      Hotel[]
 }
 
 model Session {
@@ -76,4 +77,15 @@ model TicketsSold{
   ticketValue   Int     
 
 
+}
+model Hotel {
+  id         Int  @id @default(autoincrement())
+  userId     Int       @unique
+  User       User      @relation(fields: [userId], references: [id])
+  createdAt  DateTime   @default(now())
+  roomNumber Int 
+  image      String 
+  hotelName  String
+  roomType   String
+  roomCount  String
 }
