@@ -41,6 +41,7 @@ async function enrolled(id: number) {
     where: { activityId: id },
   });
 }
+
 const activityRepository = {
   isActivityExistent,
   userActivities,
