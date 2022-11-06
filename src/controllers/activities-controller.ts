@@ -2,8 +2,7 @@ import { AuthenticatedRequest } from '@/middlewares';
 import activitiesService from '@/services/activities-service';
 import { Response, Request } from 'express';
 import httpStatus from 'http-status';
-import *as newRepo from '../repositories/activity-repository/newRepo'
-
+import activityRepository from '@/repositories/activity-repository';
 
 export async function postActivity(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
@@ -22,8 +21,7 @@ export async function activityVacancies(req: Request, res: Response) {
 export async function getActivities(req: AuthenticatedRequest, res: Response) {
 
   const {date} = req.params
-
-  const response = await newRepo.allActivities()
+  const response = await activityRepository.allActivities()
 
   res.send(response)
 }

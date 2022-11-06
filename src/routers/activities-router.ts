@@ -6,6 +6,6 @@ const activitiesRouter = Router();
 
 activitiesRouter.post('/:id', authenticateToken, postActivity);
 activitiesRouter.get('/:id', activityVacancies);
-activitiesRouter.get('/getA', getActivities)
 
 export { activitiesRouter };
+ 

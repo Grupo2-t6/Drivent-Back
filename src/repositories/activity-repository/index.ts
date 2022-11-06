@@ -41,6 +41,12 @@ async function enrolled(id: number) {
     where: { activityId: id },
   });
 }
+ async function allActivities(){
+  console.log('opa')
+  const response = await prisma.activities.findMany()
+
+  return response
+}
 
 const activityRepository = {
   isActivityExistent,
@@ -48,6 +54,7 @@ const activityRepository = {
   AddNewActivityAtUserById,
   getVacancies,
   enrolled,
+  allActivities
 };
 
 export default activityRepository;
