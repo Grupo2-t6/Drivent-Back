@@ -42,7 +42,7 @@ async function main() {
         date: 'Sexta, 22/10',
         vacancies: 15,
         startTime: '10:00',
-        finalTime: '1100',
+        finalTime: '11:00',
         trailId: 1
       },
       {
