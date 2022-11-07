@@ -43,13 +43,12 @@ async function enrolled(id: number) {
 }
 
  async function allActivities(date: string){
-  const response = await prisma.activities.groupBy({
-    by: ['trailId'],
-    where:{
-      date
+  const response = await prisma.trails.findMany({
+    select: {
+      activities: true,
     }
   })
-
+  console.log(response)
   return response
 }
 
