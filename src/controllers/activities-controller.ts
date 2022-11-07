@@ -20,8 +20,8 @@ export async function activityVacancies(req: Request, res: Response) {
 
 export async function getActivities(req: AuthenticatedRequest, res: Response) {
 
-  const {date} = req.params
-  const response = await activityRepository.allActivities()
+  const {date} = req.body
+  const response = await activityRepository.allActivities(date)
 
   res.send(response)
 }

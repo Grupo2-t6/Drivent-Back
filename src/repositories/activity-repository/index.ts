@@ -41,9 +41,13 @@ async function enrolled(id: number) {
     where: { activityId: id },
   });
 }
- async function allActivities(){
-  console.log('opa')
-  const response = await prisma.activities.findMany()
+
+ async function allActivities(date: string){
+  const response = await prisma.activities.findMany({
+    where:{
+      date
+    }
+  })
 
   return response
 }
