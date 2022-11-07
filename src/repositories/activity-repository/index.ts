@@ -41,12 +41,24 @@ async function enrolled(id: number) {
     where: { activityId: id },
   });
 }
+
+ async function allActivities(date: string){
+  const response = await prisma.trails.findMany({
+    select: {
+      activities: true,
+    }
+  })
+  console.log(response)
+  return response
+}
+
 const activityRepository = {
   isActivityExistent,
   userActivities,
   AddNewActivityAtUserById,
   getVacancies,
   enrolled,
+  allActivities
 };
 
 export default activityRepository;
